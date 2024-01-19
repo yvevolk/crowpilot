@@ -1,7 +1,4 @@
 [{
-  "_id": {
-    "$oid": "65a6a220b6379fa3d88a04b9"
-  },
   "user_id": 1,
   "firstname": "Joe",
   "surname": "Bloggs",
@@ -13,9 +10,6 @@
   "photos_taken": 2
 },
 {
-  "_id": {
-    "$oid": "65a6a220b6379fa3d88a04ba"
-  },
   "user_id": 2,
   "firstname": "Fran",
   "surname": "Stan",
@@ -27,9 +21,6 @@
   "photos_taken": 30
 },
 {
-  "_id": {
-    "$oid": "65a6a220b6379fa3d88a04bb"
-  },
   "user_id": 3,
   "firstname": "Harry",
   "surname": "Potter",
@@ -41,9 +32,6 @@
   "photos_taken": 0
 },
 {
-  "_id": {
-    "$oid": "65a6a220b6379fa3d88a04bc"
-  },
   "user_id": 4,
   "firstname": "James",
   "surname": "Moriarty",
@@ -55,9 +43,6 @@
   "photos_taken": 1
 },
 {
-  "_id": {
-    "$oid": "65a6a220b6379fa3d88a04bd"
-  },
   "user_id": 5,
   "firstname": "Mickey",
   "surname": "Mouse",
