@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "65a7e5284b13b22b14bbfac4"
+  },
+  "photo_id": 1,
+  "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
+  "location": {
+    "lat": 7.68303,
+    "long": -65.66215
+  },
+  "taken_by": 1,
+  "photo_type": "air",
+  "date_taken": "2024-01-01",
+  "flight_code": "AA1234",
+  "flight_origin": "JFK",
+  "flight_dest": "LAX",
+  "remarks": "Lorem ipsum dolor sit amet"
+},
+{
+  "_id": {
+    "$oid": "65a7e5284b13b22b14bbfac5"
+  },
+  "photo_id": 2,
+  "photo_url": "https://images.unsplash.com/photo-1705280218521-ecab783647a3",
+  "location": {
+    "lat": -66.99504,
+    "long": 67.96649
+  },
+  "taken_by": 1,
+  "photo_type": "land",
+  "date_taken": "2024-01-02",
+  "flight_code": "AA55",
+  "flight_origin": "JFK",
+  "flight_dest": "LHR",
+  "remarks": "Another nice photo by me"
+},
+{
+  "_id": {
+    "$oid": "65a7e5284b13b22b14bbfac6"
+  },
+  "photo_id": 3,
+  "photo_url": "https://images.unsplash.com/photo-1705097565168-fb30476501e5",
+  "location": {
+    "lat": -57.14832,
+    "long": -179.49507
+  },
+  "taken_by": 2,
+  "photo_type": "air",
+  "date_taken": "2024-01-02",
+  "flight_code": "BA12",
+  "flight_origin": "MAN",
+  "flight_dest": "CDG",
+  "remarks": "My first photo"
+}]
