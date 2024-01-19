@@ -1,7 +1,4 @@
 [{
-  "_id": {
-    "$oid": "65a7e5284b13b22b14bbfac4"
-  },
   "photo_id": 1,
   "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
   "location": {
@@ -17,9 +14,6 @@
   "remarks": "Lorem ipsum dolor sit amet"
 },
 {
-  "_id": {
-    "$oid": "65a7e5284b13b22b14bbfac5"
-  },
   "photo_id": 2,
   "photo_url": "https://images.unsplash.com/photo-1705280218521-ecab783647a3",
   "location": {
@@ -35,9 +29,6 @@
   "remarks": "Another nice photo by me"
 },
 {
-  "_id": {
-    "$oid": "65a7e5284b13b22b14bbfac6"
-  },
   "photo_id": 3,
   "photo_url": "https://images.unsplash.com/photo-1705097565168-fb30476501e5",
   "location": {
