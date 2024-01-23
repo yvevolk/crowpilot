@@ -1,9 +1,9 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const User = require('../models/users.js') //users schema!
+const User = require('../models/users.js') 
 const Photo = require('../models/photos.js')
 
-const users = require('./data/test-data/users.json') // get user data to seed in
+const users = require('./data/test-data/users.json')
 const photos = require('./data/test-data/photos.json')
 
 mongoose.connect(process.env.DATABASE_URL)

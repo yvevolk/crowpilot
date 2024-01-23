@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { number } = require('yargs');
 
 const photoSchema = new mongoose.Schema({
     photo_id: {
