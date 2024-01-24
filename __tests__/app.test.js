@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app.js')
 
-describe.only('GET /api/photos', () => {
+describe('GET /api/photos', () => {
   it('should return an array of photo objects', async () => {
     return supertest(app).get('/api/photos')
     .expect(200).then((response) => {
@@ -76,6 +76,27 @@ describe('GET /api/users/:user_id', () => {
         })
       })
     });
+
+describe('POST /api/photos', () => {
+  it('should return status 201 and posted photo object when posting a valid photo', () => {
+    const newPhoto = {
+      "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
+     "location": {
+       "lat": 7.634567,
+       "long": -35.53215
+     },
+     "taken_by": 2,
+     "photo_type": "air",
+     "date_taken": "2024-01-05",
+     "flight_code": "BA123",
+     "flight_origin": "LHR",
+     "flight_dest": "FCO",
+     "remarks": "A flight from London to Rome"
+           }
+    return supertest(app).post('/api/photos').send(newPhoto)
+    .expect(201)
+  })
+})
 
 
 describe('invalid endpoint', () => {

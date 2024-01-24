@@ -52,6 +52,19 @@ router.get('/users/:user_id', async (req, res) => {
     }
 })
 
+router.post('/photos', async (req, res) => {
+    const data = req.body;
+    console.log(data)
+    try {
+        new Photo(data);
+        res.status(201).json(data)
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({message: err.message})
+    }
+})
+
 router.all('/*', function (req, res) {
     res.status(404).send({message: 'Invalid endpoint'})
 })

@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const photoSchema = new mongoose.Schema({
-    photo_id: {
-      type: Number,
-      required: true,
-  },
   photo_url: {
     type: String,
     required: true,

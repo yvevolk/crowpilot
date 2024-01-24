@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const User = require('../models/users.js') 
-const Photo = require('../models/photos.js')
+const User = require('../models/user_models.js') 
+const Photo = require('../models/photo_models.js')
 
 const users = require('./data/test-data/users.json')
 const photos = require('./data/test-data/photos.json')

@@ -1,5 +1,4 @@
 [{
-  "photo_id": 1,
   "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
   "location": {
     "lat": 7.68303,
@@ -14,7 +13,6 @@
   "remarks": "Lorem ipsum dolor sit amet"
 },
 {
-  "photo_id": 2,
   "photo_url": "https://images.unsplash.com/photo-1705280218521-ecab783647a3",
   "location": {
     "lat": -66.99504,
@@ -29,7 +27,6 @@
   "remarks": "Another nice photo by me"
 },
 {
-  "photo_id": 3,
   "photo_url": "https://images.unsplash.com/photo-1705097565168-fb30476501e5",
   "location": {
     "lat": -57.14832,
