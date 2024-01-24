@@ -5,7 +5,7 @@ const User = require('../models/user_models.js')
 
 router.get('/photos', async (req, res) => {
     try{
-        const photos = await Photo.find();
+        const photos = await Photo.find(req.query);
         res.status(200).json(photos)
     }
     catch(err){
@@ -16,12 +16,22 @@ router.get('/photos', async (req, res) => {
 router.get('/photos/:user_id', async (req, res) => {
     const id = req.params.user_id;
     try {
-        const photos = await Photo.find({"taken_by": `${id}`});
-        res.status(200);
-        res.json(photos)
+        const checkUser = await User.find({"user_id": `${id}`});
+        if (checkUser.length === 1){
+             try {
+             const photos = await Photo.find({"taken_by": `${id}`});
+               res.status(200);
+               res.json(photos)
+    }
+    catch(err){res.status(500).json({message: err.message})}
+        }
+        else {
+            res.status(404).json({message: 'No such user exists'})
+        }
     }
     catch(err){
-        res.status(500).json({message: err.message})
+        if(err.reason.code === 'ERR_ASSERTION'){res.status(400).json({message: 'Bad request'})}
+         else {res.status(500).json({message: err.message})}
     }
 })
 
