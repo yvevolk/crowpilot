@@ -15,9 +15,6 @@ app.use('/api', routes)
 app.use((err, req, res, next) => {
     console.log(err)
 })
-// app.listen(3000, () => {
-//     console.log('listening on port 3000')
-// })
 
 db.on('error', (err) => {console.log(err)})
 

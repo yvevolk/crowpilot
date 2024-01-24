@@ -26,7 +26,7 @@ describe('GET /api/photos/:user_id', () => {
   })
 })
 
-describe.only('GET /api/users/:user_id', () => {
+describe('GET /api/users/:user_id', () => {
     it('should return an array of single user object corresponding to unique id', async () => {
         return supertest(app).get('/api/users/5')
         .expect(200).then((response) => {
@@ -42,7 +42,9 @@ describe.only('GET /api/users/:user_id', () => {
       })
       it('should return 400 if user_id is invalid', async () => {
         return supertest(app).get('/api/users/abc')
-        .expect(400)
+        .expect(400).then((response) => {
+          expect(response._body.message).toBe('Bad request')
+        })
       })
     });
 

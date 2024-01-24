@@ -34,11 +34,11 @@ router.get('/users/:user_id', async (req, res) => {
             res.json('No such user found');
         }
         else {
-        res.status(200);
-        res.json(users)}
+        res.status(200).json(users)}
     }
     catch(err){
-        res.status(500).json({message: err.message})
+         if(err.reason.code === 'ERR_ASSERTION'){res.status(400).json({message: 'Bad request'})}
+         else {res.status(500).json({message: err.message})}
     }
 })
 

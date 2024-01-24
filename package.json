@@ -1,9 +1,9 @@
 {
   "name": "tech-tests",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "devStart": "nodemon app.js",
     "test": "jest",
     "seed": "node ./db/seed.js"
   },
@@ -14,8 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongodb": "6.3",
-    "mongoose": "^8.1.0",
-    "piexifjs": "^1.0.4"
+    "mongoose": "^8.1.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^4.2.0",
