@@ -4,7 +4,7 @@
     "lat": 7.68303,
     "long": -65.66215
   },
-  "taken_by": 1,
+  "taken_by": "joeybloggs",
   "photo_type": "air",
   "date_taken": "2024-01-01",
   "flight_code": "AA1234",
@@ -18,7 +18,7 @@
     "lat": -66.99504,
     "long": 67.96649
   },
-  "taken_by": 1,
+  "taken_by": "joeybloggs",
   "photo_type": "land",
   "date_taken": "2024-01-02",
   "flight_code": "AA55",
@@ -32,7 +32,7 @@
     "lat": -57.14832,
     "long": -179.49507
   },
-  "taken_by": 2,
+  "taken_by": "franthestan",
   "photo_type": "air",
   "date_taken": "2024-01-02",
   "flight_code": "BA12",

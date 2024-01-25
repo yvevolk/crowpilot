@@ -30,62 +30,50 @@ describe('GET /api/photos', () => {
   })
   });
 
-describe('GET /api/photos/:user_id', () => {
+describe('GET /api/photos/:username', () => {
   it('should return an array of photo objects where user id matches request', async () => {
-    return supertest(app).get('/api/photos/1')
+    return supertest(app).get('/api/photos/joeybloggs')
     .expect(200).then((response) => {
       expect(response._body.length).toBe(2)
     })
   })
   it('should return an empty array if user exists but has no photos', async () => {
-    return supertest(app).get('/api/photos/3')
+    return supertest(app).get('/api/photos/gryffindor')
     .expect(200).then((response) => {
       expect(response._body.length).toBe(0)
     })
   })
-  it('should return 404 if user_id is valid but does not exist', async () => {
-    return supertest(app).get('/api/photos/99')
+  it('should return 404 if username does not exist', async () => {
+    return supertest(app).get('/api/photos/fakeuser')
     .expect(404)
-  })
-  it('should return 400 if user_id is invalid', async () => {
-    return supertest(app).get('/api/photos/abc')
-    .expect(400).then((response) => {
-      expect(response._body.message).toBe('Bad request')
-    })
   })
 })
 
-describe('GET /api/users/:user_id', () => {
-    it('should return an array of single user object corresponding to unique id', async () => {
-        return supertest(app).get('/api/users/5')
+describe('GET /api/users/:username', () => {
+    it('should return an array of single user object corresponding to username', async () => {
+        return supertest(app).get('/api/users/gryffindor')
         .expect(200).then((response) => {
-            const firstname = (response._body[0].firstname)
             expect(response._body.length).toBe(1)
-            expect(firstname).toBe('Mickey')})
+            expect(response._body[0].firstname).toBe('Harry');
+            expect(response._body[0].surname).toBe('Potter')})
         })
-      it('should return 404 if user_id is valid but does not exist', async () => {
-        return supertest(app).get('/api/users/99')
+      it('should return 404 if username but does not exist', async () => {
+        return supertest(app).get('/api/users/fakeuser')
         .expect(404).then((response) => {
           expect(response._body).toBe('No such user found')
-        })
-      })
-      it('should return 400 if user_id is invalid', async () => {
-        return supertest(app).get('/api/users/abc')
-        .expect(400).then((response) => {
-          expect(response._body.message).toBe('Bad request')
         })
       })
     });
 
 describe('POST /api/photos', () => {
-  it('should return status 201 and posted photo object when posting a valid photo', () => {
+  it('should return status 201 and posted photo object when posting a photo with all fields filled', () => {
     const newPhoto = {
       "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
      "location": {
        "lat": 7.634567,
        "long": -35.53215
      },
-     "taken_by": 2,
+     "taken_by": "franthestan",
      "photo_type": "air",
      "date_taken": "2024-01-05",
      "flight_code": "BA123",
@@ -94,6 +82,60 @@ describe('POST /api/photos', () => {
      "remarks": "A flight from London to Rome"
            }
     return supertest(app).post('/api/photos').send(newPhoto)
+    .expect(201).then((response) => {
+      const reqKeys = ["photo_url", "location", "taken_by", "photo_type", "date_taken", "flight_code", "flight_origin", "flight_dest", "remarks", "_id", "__v"]
+      expect(Object.getOwnPropertyNames(response._body)).toEqual(reqKeys);
+  })
+})
+  it('should return status 201 and posted photo object when posting a photo with all required fields filled', () => {
+    const newPhoto = {
+      "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
+     "location": {
+       "lat": 7.634567,
+       "long": -35.53215
+     },
+     "taken_by": "franthestan",
+     "photo_type": "air",
+     "date_taken": "2024-01-05",
+     "flight_origin": "LHR",
+     "flight_dest": "FCO",
+           }
+    return supertest(app).post('/api/photos').send(newPhoto)
+    .expect(201).then((response) => {
+      const reqKeys = ["photo_url", "location", "taken_by", "photo_type", "date_taken", "flight_origin", "flight_dest", "_id", "__v"]
+      expect(Object.getOwnPropertyNames(response._body)).toEqual(reqKeys);
+  })
+  })
+  it('should return status 400 when trying to post photo with missing required fields', () => {
+    const newPhoto = {
+     "taken_by": 2}
+     return supertest(app).post('/api/photos').send(newPhoto)
+     .expect(400)
+  })
+  it('should return status 400 when trying to post photo with invalid fields', () => {
+    const newPhoto = {
+      "photo_url": "https://images.unsplash.com/photo-1682686581776-b6ebee7c150e",
+     "location": {
+       "lat": 'loremipsum',
+       "long": 'loremipsum'
+     },
+     "taken_by": "franthestan",
+     "photo_type": "air",
+     "date_taken": "2024-01-05",
+     "flight_code": "BA123",
+     "flight_origin": "LHR",
+     "flight_dest": "FCO",
+     "remarks": "A flight from London to Rome"
+           }
+     return supertest(app).post('/api/photos').send(newPhoto)
+     .expect(400)
+  })
+})
+
+describe.only('POST /api/users', () => {
+  it('should return status 201 and posted user object when creating a new user with all fields filled', () => {
+    const newUser = {}
+    return supertest(app).post('/api/users').send(newUser)
     .expect(201)
   })
 })
@@ -109,10 +151,9 @@ describe('invalid endpoint', () => {
     });
 
 beforeAll(() => {
-    mongoose.connect(process.env.DATABASE_URL)
+    mongoose.connect(process.env.DATABASE_URL);
 })
 
 afterAll(() => {
-    mongoose.connection.close();
-    })
+    mongoose.connection.close()})
     

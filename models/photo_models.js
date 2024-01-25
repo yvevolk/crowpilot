@@ -16,7 +16,7 @@ const photoSchema = new mongoose.Schema({
     },
   },
   taken_by: {
-    type: Number,
+    type: String,
     required: true,
   },
   photo_type: {
@@ -29,7 +29,7 @@ const photoSchema = new mongoose.Schema({
   },
   flight_code: {
     type: String,
-    required: true,
+    required: false,
   },
   flight_origin: {
     type: String,
@@ -41,7 +41,7 @@ const photoSchema = new mongoose.Schema({
   },
   remarks: {
     type: String,
-    required: true,
+    required: false,
   },
 })
 

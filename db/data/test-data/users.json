@@ -1,7 +1,7 @@
 [{
-  "user_id": 1,
   "firstname": "Joe",
   "surname": "Bloggs",
+  "username": "joeybloggs",
   "email": "joebloggs@email.com",
   "phone": "07777777777",
   "avatar_url": "https://images.unsplash.com/photo-1705179910379-22460ba72214",
@@ -10,9 +10,9 @@
   "photos_taken": 2
 },
 {
-  "user_id": 2,
   "firstname": "Fran",
   "surname": "Stan",
+  "username": "franthestan",
   "email": "fran123@email.com",
   "phone": "07125739268",
   "avatar_url": "https://images.unsplash.com/photo-1705198354189-dc0b7acb8a4b",
@@ -21,9 +21,9 @@
   "photos_taken": 30
 },
 {
-  "user_id": 3,
   "firstname": "Harry",
   "surname": "Potter",
+  "username": "gryffindor", 
   "email": "harry@example.com",
   "phone": "07157295663",
   "avatar_url": "https://images.unsplash.com/photo-1705311756049-d4720db623f3",
@@ -32,9 +32,9 @@
   "photos_taken": 0
 },
 {
-  "user_id": 4,
   "firstname": "James",
   "surname": "Moriarty",
+  "username": "sherlockvillain",
   "email": "moriarty@example.com",
   "phone": "07656344498",
   "avatar_url": "https://images.unsplash.com/photo-1705388364884-747aa0687da2",
@@ -43,9 +43,9 @@
   "photos_taken": 1
 },
 {
-  "user_id": 5,
   "firstname": "Mickey",
   "surname": "Mouse",
+  "username": "steamboatwillie",
   "email": "mickey@example.com",
   "phone": "07683026633",
   "avatar_url": "https://images.unsplash.com/photo-1704002631457-9a14d58464cf",

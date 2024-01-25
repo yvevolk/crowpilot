@@ -13,13 +13,13 @@ router.get('/photos', async (req, res) => {
     }
 })
 
-router.get('/photos/:user_id', async (req, res) => {
-    const id = req.params.user_id;
+router.get('/photos/:username', async (req, res) => {
+    const name = req.params.username;
     try {
-        const checkUser = await User.find({"user_id": `${id}`});
+        const checkUser = await User.find({"username": `${name}`});
         if (checkUser.length === 1){
              try {
-             const photos = await Photo.find({"taken_by": `${id}`});
+             const photos = await Photo.find({"taken_by": `${name}`});
                res.status(200);
                res.json(photos)
     }
@@ -30,15 +30,14 @@ router.get('/photos/:user_id', async (req, res) => {
         }
     }
     catch(err){
-        if(err.reason.code === 'ERR_ASSERTION'){res.status(400).json({message: 'Bad request'})}
-         else {res.status(500).json({message: err.message})}
+     {res.status(500).json({message: err.message})}
     }
 })
 
-router.get('/users/:user_id', async (req, res) => {
-    const id = req.params.user_id;
+router.get('/users/:username', async (req, res) => {
+    const name = req.params.username;
     try {
-        const users = await User.find({"user_id": `${id}`});
+        const users = await User.find({"username": `${name}`});
         if (users.length === 0 ){
             res.status(404);
             res.json('No such user found');
@@ -47,21 +46,18 @@ router.get('/users/:user_id', async (req, res) => {
         res.status(200).json(users)}
     }
     catch(err){
-         if(err.reason.code === 'ERR_ASSERTION'){res.status(400).json({message: 'Bad request'})}
-         else {res.status(500).json({message: err.message})}
+          {res.status(500).json({message: err.message})}
     }
 })
 
 router.post('/photos', async (req, res) => {
-    const data = req.body;
-    console.log(data)
+    const photo = new Photo(req.body)
     try {
-        new Photo(data);
-        res.status(201).json(data)
+        const newPhoto = await photo.save()
+        res.status(201).json(newPhoto)
     }
     catch(err){
-        console.log(err)
-        res.status(500).json({message: err.message})
+        res.status(400).json({message: err.message})
     }
 })
 
