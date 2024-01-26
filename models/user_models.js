@@ -31,10 +31,6 @@ const userSchema = new mongoose.Schema({
   home_airport: {
     type: String,
     required: true,
-  },
-  photos_taken: {
-    type: Number,
-    default: 0
   }
 })
 

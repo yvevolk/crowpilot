@@ -16,8 +16,8 @@ router.get('/photos', async (req, res) => {
 router.get('/photos/:username', async (req, res) => {
     const name = req.params.username;
     try {
-        const checkUser = await User.find({"username": `${name}`});
-        if (checkUser.length === 1){
+        const checkUser = await User.findOne({"username": `${name}`});
+        if (checkUser){
              try {
              const photos = await Photo.find({"taken_by": `${name}`});
                res.status(200);
@@ -35,15 +35,11 @@ router.get('/photos/:username', async (req, res) => {
 })
 
 router.get('/users/:username', async (req, res) => {
-    const name = req.params.username;
+    const username = req.params.username;
     try {
-        const users = await User.find({"username": `${name}`});
-        if (users.length === 0 ){
-            res.status(404);
-            res.json('No such user found');
-        }
-        else {
-        res.status(200).json(users)}
+        const user = await User.findOne({"username": `${username}`})
+        if (user){res.status(200).json(user)}
+        else {res.status(404).json({message: 'No such user exists'})}
     }
     catch(err){
           {res.status(500).json({message: err.message})}
@@ -68,7 +64,31 @@ router.post('/users', async (req, res) => {
         res.status(201).json(newUser)
     }
     catch(err){
-        res.status(400).json({message: err.message})
+        res.status(400).json({message: 'Bad request'})
+    }
+})
+
+router.patch('/users/:username', async(req, res) => {
+    const username = req.params.username;
+    const toUpdate = req.body;
+    try {
+        const user = await User.findOneAndUpdate({'username': `${username}`}, toUpdate, {'new': true});
+        res.status(200).json(user)
+    }
+    catch(err){
+        res.status(404).json({message: 'No such user exists'})
+    }
+})
+
+router.patch('/photos/:photo', async (req, res) => {
+    const id = req.params.photo;
+    const toUpdate = req.body;
+    try {
+        const photo = await Photo.findByIdAndUpdate(id, toUpdate, {'new': true});
+        res.status(200).json(photo)
+    }
+    catch(err){
+        res.status(404).json({message: 'No such photo exists'})
     }
 })
 

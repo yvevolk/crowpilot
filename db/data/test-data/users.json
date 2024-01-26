@@ -6,8 +6,7 @@
   "phone": "07777777777",
   "avatar_url": "https://images.unsplash.com/photo-1705179910379-22460ba72214",
   "acc_created": "2024-01-01",
-  "home_airport": "LHR",
-  "photos_taken": 2
+  "home_airport": "LHR"
 },
 {
   "firstname": "Fran",
@@ -17,8 +16,7 @@
   "phone": "07125739268",
   "avatar_url": "https://images.unsplash.com/photo-1705198354189-dc0b7acb8a4b",
   "acc_created": "2024-01-03",
-  "home_airport": "STN",
-  "photos_taken": 30
+  "home_airport": "STN"
 },
 {
   "firstname": "Harry",
@@ -28,8 +26,7 @@
   "phone": "07157295663",
   "avatar_url": "https://images.unsplash.com/photo-1705311756049-d4720db623f3",
   "acc_created": "2024-01-06",
-  "home_airport": "LHR",
-  "photos_taken": 0
+  "home_airport": "LHR"
 },
 {
   "firstname": "James",
@@ -39,8 +36,7 @@
   "phone": "07656344498",
   "avatar_url": "https://images.unsplash.com/photo-1705388364884-747aa0687da2",
   "acc_created": "2024-01-07",
-  "home_airport": "MAN",
-  "photos_taken": 1
+  "home_airport": "MAN"
 },
 {
   "firstname": "Mickey",
@@ -50,6 +46,5 @@
   "phone": "07683026633",
   "avatar_url": "https://images.unsplash.com/photo-1704002631457-9a14d58464cf",
   "acc_created": "2024-01-10",
-  "home_airport": "JFK",
-  "photos_taken": 17
+  "home_airport": "JFK"
 }]
