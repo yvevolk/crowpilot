@@ -5,27 +5,27 @@ const app = require('../app.js')
 
 describe('GET /api/photos', () => {
   it('should return an array of photo objects', async () => {
-    return supertest(app).get('/api/photos')
+    return supertest(app).get('/api/photos')  
     .expect(200).then((response) => {
-        expect(response._body.length).toBe(3)})
+        expect(response.body.length).toBe(3)})
     })
   it('should return an array of photos corresponding to date query', () => {
     return supertest(app).get('/api/photos?date_taken=2024-01-02')
     .expect(200).then((response) => {
-      expect(response._body.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
   })
   it('should return an array of photos corresponding to flight origin query', () => {
     return supertest(app).get('/api/photos?flight_origin=JFK')
     .expect(200).then((response) => {
-      expect(response._body.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
   })
   it('should return an array of photos corresponding to 2 different queries', () => {
     return supertest(app).get('/api/photos?flight_origin=JFK&date_taken=2024-01-01')
     .expect(200).then((response) => {
-      expect(response._body.length).toBe(1)
-      expect(response._body[0].flight_code).toBe("AA1234")
+      expect(response.body.length).toBe(1)
+      expect(response.body[0].flight_code).toBe("AA1234")
     })
   })
   });
@@ -34,13 +34,13 @@ describe('GET /api/photos/:username', () => {
   it('should return an array of photo objects where username matches request', async () => {
     return supertest(app).get('/api/photos/joeybloggs')
     .expect(200).then((response) => {
-      expect(response._body.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
   })
   it('should return an empty array if username exists but has no photos', async () => {
     return supertest(app).get('/api/photos/gryffindor')
     .expect(200).then((response) => {
-      expect(response._body.length).toBe(0)
+      expect(response.body.length).toBe(0)
     })
   })
   it('should return 404 if username does not exist', async () => {
@@ -53,13 +53,13 @@ describe('GET /api/users/:username', () => {
     it('should return a single user object corresponding to username', async () => {
         return supertest(app).get('/api/users/franthestan')
         .expect(200).then((response) => {
-            expect(response._body.firstname).toBe('Fran');
-            expect(response._body.surname).toBe('Stan')})
+            expect(response.body.firstname).toBe('Fran');
+            expect(response.body.surname).toBe('Stan')})
         })
       it('should return 404 if username does not exist', async () => {
         return supertest(app).get('/api/users/fakeuser')
         .expect(404).then((response) => {
-          expect(response._body.message).toBe('No such user exists')
+          expect(response.body.message).toBe('No such user exists')
         })
       })
     });
@@ -81,7 +81,7 @@ describe('POST /api/photos', () => {
     return supertest(app).post('/api/photos').send(newPhoto)
     .expect(201).then((response) => {
       const reqKeys = ["photo_url", "location", "taken_by", "photo_type", "date_taken", "flight_origin", "flight_dest", "_id", "__v"]
-      expect(Object.getOwnPropertyNames(response._body)).toEqual(reqKeys);
+      expect(Object.getOwnPropertyNames(response.body)).toEqual(reqKeys);
   })
   })
   it('should return status 400 when trying to post photo with missing required fields', () => {
@@ -123,7 +123,7 @@ describe('POST /api/users', () => {
     return supertest(app).post('/api/users').send(newUser)
     .expect(201).then((response) => {
       const reqKeys = ["firstname", "surname", "username", "email", "phone", "avatar_url","home_airport", "_id",  "acc_created", "__v"]
-      expect(Object.getOwnPropertyNames(response._body)).toEqual(reqKeys);
+      expect(Object.getOwnPropertyNames(response.body)).toEqual(reqKeys);
     })
   })
   it('should return status 400 when trying to create user with missing required fields', () => {
@@ -156,33 +156,33 @@ describe('PATCH /api/users/:username',() => {
     const patchedUser = {"phone": "07777777778"}
     return supertest(app).patch('/api/users/joeybloggs').send(patchedUser)
     .expect(200).then((response) => {
-      expect(response._body.phone).toBe("07777777778");
+      expect(response.body.phone).toBe("07777777778");
     })
   })
   it('should return status code 200 and updated user when patching multiple fields on a user', () => {
     const patchedUser = {"firstname": "Joseph", "phone": "07777777779"}
     return supertest(app).patch('/api/users/joeybloggs').send(patchedUser)
     .expect(200).then((response) => {
-      expect(response._body.phone).toBe("07777777779");
-      expect(response._body.firstname).toBe("Joseph");
+      expect(response.body.phone).toBe("07777777779");
+      expect(response.body.firstname).toBe("Joseph");
     })
   })
 })
 
-describe.only('PATCH /api/photos/:photo', () => {
+describe('PATCH /api/photos/:photo', () => {
   it('should return status code 200 and single photo object when patching one field on a photo', () => {
     const patchedPhoto = {"remarks": "This is a new remark"}
-    return supertest(app).patch('/api/photos/65b3d087bf8ccde9351f3233').send(patchedPhoto)
+    return supertest(app).patch('/api/photos/65b426673ff971bf4418533e').send(patchedPhoto)
     .expect(200).then((response) => {
-      expect(response._body.remarks).toBe('This is a new remark')
+      expect(response.body.remarks).toBe('This is a new remark')
     })
   })
   it('should return status code 200 and single photo object when patching multiple fields on a photo', () => {
     const patchedPhoto = {"flight_dest": "MCO", "remarks": "I flew to Orlando"}
-    return supertest(app).patch('/api/photos/65b3d087bf8ccde9351f3233').send(patchedPhoto)
+    return supertest(app).patch('/api/photos/65b426673ff971bf4418533e').send(patchedPhoto)
     .expect(200).then((response) => {
-      expect(response._body.flight_dest).toBe('MCO')
-      expect(response._body.remarks).toBe('I flew to Orlando')
+      expect(response.body.flight_dest).toBe('MCO')
+      expect(response.body.remarks).toBe('I flew to Orlando')
     })
   })
   it('should return status code 404 when trying to patch a photo that does not exist', () => {
@@ -194,7 +194,7 @@ describe.only('PATCH /api/photos/:photo', () => {
 
 describe('DELETE /api/photos/:photo', () => {
   it('should return status code 204 when deleting a photo', () => {
-    return supertest(app).delete('/api/photos/65b3b26f270a4946be1ed1c9')
+    return supertest(app).delete('/api/photos/65b42539ddfbdc105a6a8706')
     .expect(204)
   })
   it('should return status code 404 when trying to delete a photo that does not exist', () => {
@@ -208,7 +208,7 @@ describe('invalid endpoint', () => {
     it('should return status 404 and an error message when trying to get invalid endpoint', async () => {
       return supertest(app).get('/api/abc')
       .expect(404).then((response) => {
-        expect(response._body.message).toBe('Invalid endpoint')
+        expect(response.body.message).toBe('Invalid endpoint')
       })
   })
     });
@@ -220,3 +220,5 @@ beforeAll(() => {
 afterAll(() => {
     mongoose.connection.close()})
     
+
+ 

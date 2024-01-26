@@ -8,7 +8,6 @@ const routes = require('./routes/routes')
 mongoose.connect(process.env.DATABASE_URL)
 
 app.use(express.json());
-app.use(cors());
 
 app.use('/api', routes)
 
