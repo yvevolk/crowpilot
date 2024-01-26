@@ -61,6 +61,28 @@ router.post('/photos', async (req, res) => {
     }
 })
 
+router.post('/users', async (req, res) => {
+    const user = new User(req.body)
+    try {
+        const newUser = await user.save();
+        res.status(201).json(newUser)
+    }
+    catch(err){
+        res.status(400).json({message: err.message})
+    }
+})
+
+router.delete('/photos/:photo', async (req, res) => {
+    const id = req.params.photo;
+    try {
+        await Photo.findByIdAndDelete(id)
+        res.status(204).json()
+    }
+    catch(err){
+        res.status(404).json({message: 'No such photo exists'})
+    }
+})
+
 router.all('/*', function (req, res) {
     res.status(404).send({message: 'Invalid endpoint'})
 })

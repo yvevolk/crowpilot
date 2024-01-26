@@ -37,7 +37,7 @@ describe('GET /api/photos/:username', () => {
       expect(response._body.length).toBe(2)
     })
   })
-  it('should return an empty array if user exists but has no photos', async () => {
+  it('should return an empty array if username exists but has no photos', async () => {
     return supertest(app).get('/api/photos/gryffindor')
     .expect(200).then((response) => {
       expect(response._body.length).toBe(0)
@@ -57,7 +57,7 @@ describe('GET /api/users/:username', () => {
             expect(response._body[0].firstname).toBe('Harry');
             expect(response._body[0].surname).toBe('Potter')})
         })
-      it('should return 404 if username but does not exist', async () => {
+      it('should return 404 if username does not exist', async () => {
         return supertest(app).get('/api/users/fakeuser')
         .expect(404).then((response) => {
           expect(response._body).toBe('No such user found')
@@ -132,11 +132,55 @@ describe('POST /api/photos', () => {
   })
 })
 
-describe.only('POST /api/users', () => {
-  it('should return status 201 and posted user object when creating a new user with all fields filled', () => {
-    const newUser = {}
+describe('POST /api/users', () => {
+  it('should return status 201 and posted user object when creating user with all required fields filled', () => {
+    const newUser = {
+    "firstname": "Donald",
+    "surname": "Duck",
+    "username": "donald_duck",
+    "email": "donald@example.com",
+    "phone": "07777777777",
+    "home_airport": "MCO",
+  }
     return supertest(app).post('/api/users').send(newUser)
-    .expect(201)
+    .expect(201).then((response) => {
+      const reqKeys = ["firstname", "surname", "username", "email", "phone", "avatar_url","home_airport", "photos_taken", "_id",  "acc_created", "__v"]
+      expect(Object.getOwnPropertyNames(response._body)).toEqual(reqKeys);
+    })
+  })
+  it('should return status 400 when trying to create user with missing required fields', () => {
+    const newUser = {
+      "firstname": "Donald",
+      "surname": "Duck",
+      "email": "donald@example.com",
+      "phone": "07777777777",
+      "home_airport": "MCO",
+    }
+    return supertest(app).post('/api/users').send(newUser)
+    .expect(400)
+  })
+  it('should return status 400 when trying to create user with invalid required fields', () => {
+    const newUser = {
+      "firstname": "Donald",
+      "surname": "Duck",
+      "username": ["user", "name"],
+      "email": "donald@example.com",
+      "phone": "07777777777",
+      "home_airport": "MCO",
+    }
+    return supertest(app).post('/api/users').send(newUser)
+    .expect(400)
+  })
+})
+
+describe('DELETE /api/photos/:photo', () => {
+  it('should return status code 204 when deleting a photo', () => {
+    return supertest(app).delete('/api/photos/65b3b26f270a4946be1ed1c9')
+    .expect(204)
+  })
+  it('should return status code 404 when trying to delete a photo that does not exist', () => {
+    return supertest(app).delete('/api/photos/12345abcde')
+    .expect(404)
   })
 })
 

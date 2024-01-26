@@ -15,12 +15,14 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    required: true
   },
   phone: {
     type: String
   },
   avatar_url: {
-    type: String
+    type: String,
+    default: "https://images.unsplash.com/photo-1599508704512-2f19efd1e35f",
   },
   acc_created: {
     type: Date,
