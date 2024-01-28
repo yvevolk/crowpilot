@@ -1,9 +1,13 @@
 {
   "name": "tech-tests",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.5.1"
+  },
   "main": "app.js",
   "scripts": {
     "devStart": "nodemon app.js",
+    "start": "node listen.js",
     "test": "jest",
     "seed": "node ./db/seed.js"
   },
