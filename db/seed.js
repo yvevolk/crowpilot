@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const User = require('../models/user_models.js') 
 const Photo = require('../models/photo_models.js')
 
-const users = require('./data/test-data/users.json')
-const photos = require('./data/test-data/photos.json')
+const users = require('./data/dev-data/users.json')
+const photos = require('./data/dev-data/photos.json')
 
 mongoose.connect(process.env.DATABASE_URL)
 .then(() => {})
