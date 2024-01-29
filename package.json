@@ -2,7 +2,7 @@
   "name": "tech-tests",
   "version": "1.0.0",
   "engines": {
-    "node": ">=20.5.1"
+    "node": "^20.5.1"
   },
   "main": "listen.js",
   "scripts": {
