@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app.js')
 
-describe('GET /api/photos', () => {
+describe.only('GET /api/photos', () => {
   it('should return an array of photo objects', async () => {
     return supertest(app).get('/api/photos')  
     .expect(200).then((response) => {
