@@ -7,6 +7,10 @@ const db = mongoose.connection;
 const routes = require('./routes/routes')
 mongoose.connect(process.env.DATABASE_URL)
 
+const port = process.env.PORT || 9090;
+
+app.listen(port, () => console.log(`Listening on ${port}...`));
+
 app.use(express.json());
 
 app.use('/api', routes)
