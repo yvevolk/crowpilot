@@ -2,6 +2,20 @@ const express = require('express')
 const router = express.Router();
 const Photo = require('../models/photo_models.js')
 const User = require('../models/user_models.js')
+const fs = require('fs')
+
+router.get('/', async (req, res) => {
+        await fs.readFile(`${__dirname}/../endpoints.json`, 'utf-8', (err, data) => {
+            if (err){
+                res.status(500).json({message: err.message})
+            }
+            else {
+                res.status(200).json(JSON.parse(data))
+            }
+        })
+    }
+)
+
 
 router.get('/photos', async (req, res) => {
     try{
@@ -106,7 +120,6 @@ router.delete('/photos/:photo', async (req, res) => {
 router.all('/*', function (req, res) {
     res.status(404).send({message: 'Invalid endpoint'})
 })
-
 
 
 module.exports = router

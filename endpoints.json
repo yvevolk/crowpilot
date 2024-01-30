@@ -1,0 +1,122 @@
+{
+    "GET /api": {
+      "description": "serves a JSON representation of all available endpoints",
+      "queries": [],
+      "exampleResponse": {
+        "endpoints": [{ "GET /api/photos": "serves an array of all photos", "GET /api/photos/:username": "serves an array of photos taken by username" }]
+      }
+    },
+    "GET /api/photos": {
+        "description": "serves an array of all photos",
+        "queries": ["taken_by", "photo_type", "date_taken", "flight_code", "flight_origin", "flight_dest"],
+        "exampleResponse": [{
+            "location": {
+            "lat": 1.000,
+            "long": 1.0000
+            },
+            "_id": "00000000000000000000",
+            "photo_url": "https://picsum.photos/id/100/500",
+            "taken_by": "user123",
+            "photo_type": "air",
+            "date_taken": "2020-01-01",
+            "flight_code": "AA111",
+            "flight_origin": "JFK",
+            "flight_dest": "LAX",
+            "remarks": "This is a remark",
+            "__v": 0
+            }]
+      },
+      "GET /api/photos/:username": {
+        "description": "serves an array of photos taken by specific user",
+        "queries": ["username"],
+        "exampleResponse": [{
+            "location": {
+            "lat": 1.000,
+            "long": 1.0000
+            },
+            "_id": "00000000000000000000",
+            "photo_url": "https://picsum.photos/id/100/500",
+            "taken_by": "user123",
+            "photo_type": "air",
+            "date_taken": "2020-01-01",
+            "flight_code": "AA111",
+            "flight_origin": "JFK",
+            "flight_dest": "LAX",
+            "remarks": "This is a remark",
+            "__v": 0
+            }]
+        },
+        "GET /api/users/:username": {
+            "description": "serves a single user information object corresponding to username",
+            "queries": ["username"],
+            "exampleResponse": {
+                "_id": "111111111111111111111",
+                "firstname": "John",
+                "surname": "Smith",
+                "username": "johnsmith",
+                "email": "johnsmith@example.com",
+                "phone": "00000000000",
+                "avatar_url": "https://picsum.photos/id/200/500",
+                "acc_created": "2021-01-01",
+                "home_airport": "LHR",
+                "__v": 0
+                }
+            },
+    "POST /api/photos": {
+        "description": "adds new photo to database and serves new photo",
+        "queries": ["location", "photo_url", "taken_by", "photo_type", "date_taken", "flight_code", "flight_origin", "flight_dest", "remarks"],
+        "exampleResponse": {
+            "location": {
+            "lat": 20.000,
+            "long": 20.0000
+            },
+            "_id": "00000000000000000000",
+            "photo_url": "https://picsum.photos/id/110/500",
+            "taken_by": "user123",
+            "photo_type": "land",
+            "date_taken": "2022-02-02",
+            "flight_code": "BA123",
+            "flight_origin": "LHR",
+            "flight_dest": "CDG",
+            "remarks": "This is a remark",
+            "__v": 0
+            }
+         },
+        "POST /api/users": {
+            "description": "adds new user to database and serves new user",
+            "queries": ["firstname", "surname", "username", "email", "phone", "home_airport"],
+                "exampleResponse": {
+                    "_id": "222222222222222222",
+                    "firstname": "Jane",
+                    "surname": "Smith",
+                    "username": "janesmith",
+                    "email": "janesmith@example.com",
+                    "phone": "077777777777",
+                    "avatar_url": "https://picsum.photos/id/300/500",
+                    "acc_created": "2022-01-01",
+                    "home_airport": "MAN",
+                    "__v": 0
+                    }
+            },
+        "PATCH /api/users/:username": {
+            "description": "amends user information corresponding to username and serves amended user",
+            "queries": ["username", "firstname", "surname", "email", "phone", "avatar_url", "home_airport"],
+            "exampleResponse": {
+                "_id": "222222222222222222",
+                "firstname": "Jane",
+                "surname": "Smith-Johnson",
+                "username": "janesmithj",
+                "email": "janesmithj@example.com",
+                "phone": "077777777777",
+                "avatar_url": "https://picsum.photos/id/300/500",
+                "acc_created": "2022-01-01",
+                "home_airport": "MAN",
+                "__v": 0
+            }
+        },
+        "DELETE /api/photos/:photo": {
+            "description": "deletes photo with corresponding id",
+            "queries": ["_id"],
+            "exampleResponse": {}
+        }
+}

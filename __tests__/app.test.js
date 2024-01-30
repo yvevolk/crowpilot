@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app.js')
 
-describe.only('GET /api/photos', () => {
+describe('GET /api/photos', () => {
   it('should return an array of photo objects', async () => {
     return supertest(app).get('/api/photos')  
     .expect(200).then((response) => {
@@ -200,6 +200,17 @@ describe('DELETE /api/photos/:photo', () => {
   it('should return status code 404 when trying to delete a photo that does not exist', () => {
     return supertest(app).delete('/api/photos/12345abcde')
     .expect(404)
+  })
+})
+
+describe('GET /api', () => {
+  it('should return status 200 and contents of endpoints.json', async () => {
+    return supertest(app).get('/api')
+    .expect(200).then((response) => {
+      expect(response.body.hasOwnProperty('GET /api')).toBe(true)
+      expect(response.body.hasOwnProperty('GET /api/photos')).toBe(true)
+      expect(response.body.hasOwnProperty('GET /api/photos/:username')).toBe(true)
+    })
   })
 })
 
