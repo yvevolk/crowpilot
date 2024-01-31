@@ -16,6 +16,6 @@ The data found in the database was created for testing and demonstration purpose
 Photographs are from Lorem Picsum and Unsplash.
 
 ## Contact
-Feel free to contact us at [yvevolk](https://github.com/yvevolk) and [jwiszowaty](https://github.com/jwizsowaty) on GitHub.
+Feel free to contact us at [yvevolk](https://github.com/yvevolk) and [jwiszowaty](https://github.com/jwiszowaty) on GitHub.
 
 (C) yvevolk + jwiszowaty, 2024
