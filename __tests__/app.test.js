@@ -9,6 +9,12 @@ describe('GET /api/photos', () => {
     .expect(200).then((response) => {
         expect(response.body.length).toBe(3)})
     })
+  it('should return photo objects in order of date, newest first', () => {
+    return supertest(app).get('/api/photos')
+    .expect(200).then((response) => {
+      expect(response.body).toBeSortedBy('date_taken', {descending: true})
+    })
+  })
   it('should return an array of photos corresponding to date query', () => {
     return supertest(app).get('/api/photos?date_taken=2024-01-02')
     .expect(200).then((response) => {
@@ -35,6 +41,12 @@ describe('GET /api/photos/:username', () => {
     return supertest(app).get('/api/photos/joeybloggs')
     .expect(200).then((response) => {
       expect(response.body.length).toBe(2)
+    })
+  }),
+  it.only('should return photo objects in order of date, newest first', () => {
+    return supertest(app).get('/api/photos/joeybloggs')
+    .expect(200).then((response) => {
+      expect(response.body).toBeSortedBy('date_taken', {descending: true})
     })
   })
   it('should return an empty array if username exists but has no photos', async () => {

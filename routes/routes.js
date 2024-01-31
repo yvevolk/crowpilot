@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
 router.get('/photos', async (req, res) => {
     try{
-        const photos = await Photo.find(req.query);
+        const photos = await Photo.find(req.query).sort({"date_taken": -1});
         res.status(200).json(photos)
     }
     catch(err){
@@ -33,7 +33,7 @@ router.get('/photos/:username', async (req, res) => {
         const checkUser = await User.findOne({"username": `${name}`});
         if (checkUser){
              try {
-             const photos = await Photo.find({"taken_by": `${name}`});
+             const photos = await Photo.find({"taken_by": `${name}`}).sort({"date_taken": -1});
                res.status(200);
                res.json(photos)
     }
