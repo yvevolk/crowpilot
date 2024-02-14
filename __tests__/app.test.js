@@ -43,8 +43,8 @@ describe('GET /api/photos/:username', () => {
       expect(response.body.length).toBe(2)
     })
   }),
-  it.only('should return photo objects in order of date, newest first', () => {
-    return supertest(app).get('/api/photos/hharr')
+  it('should return photo objects in order of date, newest first', () => {
+    return supertest(app).get('/api/photos/joeybloggs')
     .expect(200).then((response) => {
       expect(response.body).toBeSortedBy('date_taken', {descending: true})
     })
@@ -181,36 +181,46 @@ describe('PATCH /api/users/:username',() => {
   })
 })
 
-describe('PATCH /api/photos/:photo', () => {
+describe('PATCH /api/photos/:photo_id', () => {
   it('should return status code 200 and single photo object when patching one field on a photo', () => {
     const patchedPhoto = {"remarks": "This is a new remark"}
-    return supertest(app).patch('/api/photos/65b426673ff971bf4418533e').send(patchedPhoto)
-    .expect(200).then((response) => {
+    return supertest(app).patch('/api/photos/1').send(patchedPhoto)
+    .expect(200)
+    .then((response) => {
       expect(response.body.remarks).toBe('This is a new remark')
     })
   })
   it('should return status code 200 and single photo object when patching multiple fields on a photo', () => {
     const patchedPhoto = {"flight_dest": "MCO", "remarks": "I flew to Orlando"}
-    return supertest(app).patch('/api/photos/65b426673ff971bf4418533e').send(patchedPhoto)
+    return supertest(app).patch('/api/photos/1').send(patchedPhoto)
     .expect(200).then((response) => {
       expect(response.body.flight_dest).toBe('MCO')
       expect(response.body.remarks).toBe('I flew to Orlando')
     })
   })
-  it('should return status code 404 when trying to patch a photo that does not exist', () => {
+  it('should return status code 400 when trying to patch an invalid photo id', () => {
     const patchedPhoto = {"flight_dest": "MCO"}
     return supertest(app).patch('/api/photos/abcde12345').send(patchedPhoto)
+    .expect(400)
+  })
+  it('should return status code 404 when trying to patch a photo that does not exist', () => {
+    const patchedPhoto = {"flight_dest": "MCO"}
+    return supertest(app).patch('/api/photos/12345').send(patchedPhoto)
     .expect(404)
   })
 })
 
-describe('DELETE /api/photos/:photo', () => {
+describe('DELETE /api/photos/:photo_id', () => {
   it('should return status code 204 when deleting a photo', () => {
-    return supertest(app).delete('/api/photos/65b42539ddfbdc105a6a8706')
+    return supertest(app).delete('/api/photos/2')
     .expect(204)
   })
+  it('should return status code 400 when trying to delete an invalid photo id', () => {
+    return supertest(app).delete('/api/photos/abcde12345')
+    .expect(400)
+  })
   it('should return status code 404 when trying to delete a photo that does not exist', () => {
-    return supertest(app).delete('/api/photos/12345abcde')
+    return supertest(app).delete('/api/photos/12345')
     .expect(404)
   })
 })

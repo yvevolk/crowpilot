@@ -94,26 +94,46 @@ router.patch('/users/:username', async(req, res) => {
     }
 })
 
-router.patch('/photos/:photo', async (req, res) => {
-    const id = req.params.photo;
+router.patch('/photos/:photo_id', async (req, res) => {
+    const id = req.params.photo_id;
     const toUpdate = req.body;
     try {
-        const photo = await Photo.findByIdAndUpdate(id, toUpdate, {'new': true});
+        const regex = new RegExp(/\D/g)
+        if(regex.test(id)){
+            res.status(400).json({message: 'Bad request'})
+        }
+        const photo = await Photo.findOneAndUpdate({'photo_id': parseInt(id)}, toUpdate, {'new': true});
+        if (photo === null){
+            res.status(404).json({message: 'No such photo exists'})
+        }
+        else {
         res.status(200).json(photo)
     }
+    }
     catch(err){
-        res.status(404).json({message: 'No such photo exists'})
+        res.status(500).json()
     }
 })
 
-router.delete('/photos/:photo', async (req, res) => {
-    const id = req.params.photo;
+router.delete('/photos/:photo_id', async (req, res) => {
+    const id = req.params.photo_id;
     try {
-        await Photo.findByIdAndDelete(id)
-        res.status(204).json()
+        const regex = new RegExp(/\D/g)
+        if(regex.test(id)){
+            res.status(400).json({message: 'Bad request'})
+        }
+        await Photo.find({'photo_id': parseInt(id)})
+        .then((photo) => {
+            if(!photo.length){
+            res.status(404).json({message: 'No such photo exists'})
+        }
+        else {Photo.findOneAndDelete({'photo_id': parseInt(id)})
+        res.status(204).json()}
+        })
+        
     }
     catch(err){
-        res.status(404).json({message: 'No such photo exists'})
+        res.status(500).json()
     }
 })
 
