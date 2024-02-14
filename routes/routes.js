@@ -32,7 +32,7 @@ router.get('/users/:username/photos', async (req, res) => {
         const checkUser = await User.findOne({username: username});
         if (checkUser){
              try {
-             const photos = await Photo.find({"taken_by": `${username}`}).sort({"date_taken": "desc"});
+             const photos = await Photo.find({"taken_by": username}).sort({"date_taken": "desc"});
                res.status(200);
                res.json(photos)
     }
