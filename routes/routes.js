@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
     }
 )
 
-
 router.get('/photos', async (req, res) => {
     try{
         const photos = await Photo.find(req.query).sort({"date_taken": "desc"});
@@ -27,13 +26,13 @@ router.get('/photos', async (req, res) => {
     }
 })
 
-router.get('/photos/:username', async (req, res) => {
-    const name = req.params.username;
+router.get('/users/:username/photos', async (req, res) => {
+    const username = req.params.username;
     try {
-        const checkUser = await User.findOne({"username": `${name}`});
+        const checkUser = await User.findOne({username: username});
         if (checkUser){
              try {
-             const photos = await Photo.find({"taken_by": `${name}`}).sort({"date_taken": "desc"});
+             const photos = await Photo.find({"taken_by": `${username}`}).sort({"date_taken": "desc"});
                res.status(200);
                res.json(photos)
     }
@@ -95,14 +94,14 @@ router.patch('/users/:username', async(req, res) => {
 })
 
 router.patch('/photos/:photo_id', async (req, res) => {
-    const id = req.params.photo_id;
+    const photo_id = req.params.photo_id;
     const toUpdate = req.body;
     try {
         const regex = new RegExp(/\D/g)
-        if(regex.test(id)){
+        if(regex.test(photo_id)){
             res.status(400).json({message: 'Bad request'})
         }
-        const photo = await Photo.findOneAndUpdate({'photo_id': parseInt(id)}, toUpdate, {'new': true});
+        const photo = await Photo.findOneAndUpdate({'photo_id': photo_id}, toUpdate, {'new': true})
         if (photo === null){
             res.status(404).json({message: 'No such photo exists'})
         }
@@ -116,18 +115,18 @@ router.patch('/photos/:photo_id', async (req, res) => {
 })
 
 router.delete('/photos/:photo_id', async (req, res) => {
-    const id = req.params.photo_id;
+    const photo_id = req.params.photo_id;
     try {
         const regex = new RegExp(/\D/g)
-        if(regex.test(id)){
+        if(regex.test(photo_id)){
             res.status(400).json({message: 'Bad request'})
         }
-        await Photo.find({'photo_id': parseInt(id)})
+        await Photo.find({'photo_id': photo_id})
         .then((photo) => {
             if(!photo.length){
             res.status(404).json({message: 'No such photo exists'})
         }
-        else {Photo.findOneAndDelete({'photo_id': parseInt(id)})
+        else {Photo.findOneAndDelete({'photo_id': photo_id})
         res.status(204).json()}
         })
         

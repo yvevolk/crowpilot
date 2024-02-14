@@ -23,10 +23,11 @@
             "flight_origin": "JFK",
             "flight_dest": "LAX",
             "remarks": "This is a remark",
+            "photo_id": 1,
             "__v": 0
             }]
       },
-      "GET /api/photos/:username": {
+      "GET /api/users/:username/photos": {
         "description": "serves an array of photos taken by specific user",
         "queries": ["username"],
         "exampleResponse": [{
@@ -43,6 +44,7 @@
             "flight_origin": "JFK",
             "flight_dest": "LAX",
             "remarks": "This is a remark",
+            "photo_id": 1,
             "__v": 0
             }]
         },
@@ -79,6 +81,7 @@
             "flight_origin": "LHR",
             "flight_dest": "CDG",
             "remarks": "This is a remark",
+            "photo_id": 10,
             "__v": 0
             }
          },
@@ -114,9 +117,30 @@
                 "__v": 0
             }
         },
-        "DELETE /api/photos/:photo": {
-            "description": "deletes photo with corresponding id",
-            "queries": ["_id"],
+        "PATCH /api/photos/:photo_id": {
+            "description": "amends photo information corresponding to photo id and serves amended photo",
+            "queries": ["photo_id", "location", "photo_type", "date_taken", "flight_code", "flight_origin", "flight_dest", "remarks"],
+            "exampleResponse": {
+                "location": {
+                    "lat": 20.000,
+                    "long": 20.0000
+                    },
+                    "_id": "00000000000000000000",
+                    "photo_url": "https://picsum.photos/id/110/500",
+                    "taken_by": "user123",
+                    "photo_type": "land",
+                    "date_taken": "2022-02-02",
+                    "flight_code": "BA123",
+                    "flight_origin": "LHR",
+                    "flight_dest": "CDG",
+                    "remarks": "This is a new remark",
+                    "photo_id": 10,
+                    "__v": 0
+            }
+        },
+        "DELETE /api/photos/:photo_id": {
+            "description": "deletes photo with corresponding photo id",
+            "queries": ["photo_id"],
             "exampleResponse": {}
         }
 }

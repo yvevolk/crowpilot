@@ -28,8 +28,7 @@ const photoSchema = new mongoose.Schema({
     required: true,
   },
   flight_code: {
-    type: String,
-    required: false,
+    type: String
   },
   flight_origin: {
     type: String,
@@ -40,9 +39,11 @@ const photoSchema = new mongoose.Schema({
     required: true,
   },
   remarks: {
-    type: String,
-    required: false,
+    type: String
   },
+  photo_id: {
+    type: Number
+  }
 })
 
 module.exports = mongoose.model('Photo', photoSchema);

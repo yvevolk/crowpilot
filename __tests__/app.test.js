@@ -36,27 +36,27 @@ describe('GET /api/photos', () => {
   })
   });
 
-describe('GET /api/photos/:username', () => {
+describe('GET /api/users/:username/photos', () => {
   it('should return an array of photo objects where username matches request', async () => {
-    return supertest(app).get('/api/photos/joeybloggs')
+    return supertest(app).get('/api/users/joeybloggs/photos')
     .expect(200).then((response) => {
       expect(response.body.length).toBe(2)
     })
   }),
   it('should return photo objects in order of date, newest first', () => {
-    return supertest(app).get('/api/photos/joeybloggs')
+    return supertest(app).get('/api/users/joeybloggs/photos')
     .expect(200).then((response) => {
       expect(response.body).toBeSortedBy('date_taken', {descending: true})
     })
   })
   it('should return an empty array if username exists but has no photos', async () => {
-    return supertest(app).get('/api/photos/gryffindor')
+    return supertest(app).get('/api/users/gryffindor/photos')
     .expect(200).then((response) => {
       expect(response.body.length).toBe(0)
     })
   })
   it('should return 404 if username does not exist', async () => {
-    return supertest(app).get('/api/photos/fakeuser')
+    return supertest(app).get('/api/users/fakeuser/photos')
     .expect(404)
   })
 })
