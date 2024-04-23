@@ -1,5 +1,5 @@
 ## IMPORTANT
-As of 23/4/24, I have removed the supertest dev dependency due to a security vulnerability. Tests will not work without it. It will be re-implemented as soon as possible.
+As of 23/4/24, I have removed the supertest dev dependency due to a vulnerability. Tests will not work without it. It will be re-implemented as soon as possible.
 
 # Crowpilot API 🐦‍⬛✈️
 
