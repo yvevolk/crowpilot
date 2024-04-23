@@ -6,6 +6,8 @@ As of 23/4/24, I have removed the supertest dev dependency due to a security vul
 ## What is this?
 Crowpilot API is a simple RESTful API written for the Crowpilot app, utilising a MongoDB database. It is used to query, add, amend and delete user and photo data.
 
+The front end of this app can be found on [my project partner's GitHub](https://github.com/jwiszowaty/crowpilot-frontend).
+
 Created with Node.js, Express and Mongoose. Tested with Jest and Supertest.
 
 **This API and accompanying app are under development and subject to change.**
