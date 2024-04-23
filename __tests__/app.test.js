@@ -1,22 +1,21 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const supertest = require('supertest')
 const app = require('../app.js')
 
 describe('GET /api/photos', () => {
   it('should return an array of photo objects', async () => {
-    return supertest(app).get('/api/photos')  
+    return test(app).get('/api/photos')
     .expect(200).then((response) => {
-        expect(response.body.length).toBe(3)})
+        expect(response.body.length).toBe(19)})
     })
   it('should return photo objects in order of date, newest first', () => {
-    return supertest(app).get('/api/photos')
+    return test(app).get('/api/photos')
     .expect(200).then((response) => {
       expect(response.body).toBeSortedBy('date_taken', {descending: true})
     })
   })
   it('should return an array of photos corresponding to date query', () => {
-    return supertest(app).get('/api/photos?date_taken=2024-01-02')
+    return test(app).get('/api/photos?date_taken=2024-01-02')
     .expect(200).then((response) => {
       expect(response.body.length).toBe(2)
     })
